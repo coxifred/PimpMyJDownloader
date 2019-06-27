@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" >
+
+<welcome-file-list>
+<welcome-file>index.html</welcome-file>
+</welcome-file-list>
+
+<init-param>
+   	<param-name>useFileMappedBuffer</param-name>
+   	<param-value>true</param-value> <!-- change to false -->
+</init-param>
+
+<filter>
+    <filter-name>cross-origin</filter-name>
+    <filter-class>org.eclipse.jetty.servlets.CrossOriginFilter</filter-class>
+    <init-param>
+        <param-name>allowedOrigins</param-name>
+        <param-value>*</param-value>
+    </init-param>
+    <init-param>
+        <param-name>allowedMethods</param-name>
+        <param-value>GET,POST,DELETE,PUT,HEAD</param-value>
+    </init-param>
+    <init-param>
+        <param-name>allowedHeaders</param-name>
+        <param-value>origin, content-type, accept</param-value>
+    </init-param>
+</filter>
+<filter-mapping>
+    <filter-name>cross-origin</filter-name>
+   <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+ <servlet>
+     <servlet-name>default</servlet-name>
+     <servlet-class>org.eclipse.jetty.servlet.DefaultServlet</servlet-class>
+     <init-param>
+       <param-name>useFileMappedBuffer</param-name>
+       <param-value>false</param-value>
+     </init-param>
+     
+      <load-on-startup>0</load-on-startup>
+ </servlet>
+ 
+<!--  <servlet> -->
+<!--   <servlet-name>admin</servlet-name> -->
+<!--   <servlet-class>org.jdownloader.extensions.pimpmyjdownloader.PimpServlet</servlet-class> -->
+<!--  </servlet> -->
+<!--  <servlet-mapping> -->
+<!--   <servlet-name>admin</servlet-name> -->
+<!--   <url-pattern>/admin/*</url-pattern> -->
+<!-- </servlet-mapping> -->
+
+<session-config>
+	<session-timeout>120</session-timeout>
+</session-config>
+ 
+
+</web-app> 

@@ -1,0 +1,8 @@
+------------------------Thread: 1:UncaughtExceptionHandler.log-----------------------
+--ID:1TS:1560860347916-18/06/19 14:19:07 -  [org.appwork.utils.logging2.extmanager.LoggerFactory$1(uncaughtException)] -> Uncaught Exception in: 1=main
+--ID:1TS:1560860347916-18/06/19 14:19:07 -  [] -> Exception thrown at org.appwork.utils.logging2.extmanager.LoggerFactory$1.uncaughtException(LoggerFactory.java:155):
+java.lang.NullPointerException
+	at org.jdownloader.extensions.pimpmyjdownloader.PimpMyJDownloaderExtension.log(PimpMyJDownloaderExtension.java:274)
+	at org.jdownloader.extensions.pimpmyjdownloader.PimpMyJDownloaderExtension.startServer(PimpMyJDownloaderExtension.java:202)
+	at org.jdownloader.extensions.pimpmyjdownloader.PimpMyJDownloaderExtension.main(PimpMyJDownloaderExtension.java:325)
+

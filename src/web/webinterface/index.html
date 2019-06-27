@@ -1,0 +1,171 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="css/semantic.css">
+<script src="javascript/jquery.js"></script>
+<script src="javascript/semantic.min.js"></script>
+<script src="javascript/utils.js"></script>
+<style>
+</style>
+	
+<script>
+var live=0;
+$(document).ready(function(){
+	
+  	 reload();
+	 setInterval(
+			 function(){ 
+				  		if ( live == "1" )
+				  			{
+				  			reload();
+				  			}
+		 				}
+			 	,2000);
+	
+	
+	 $("body").delegate(".deletable", "click", function(){
+		    	var id=this.id;
+		    	confirm("hand paper circle","Confirm clear, this will only remove from PimpMyJDownloader extension, it will continue in JDownloader",function(){
+		    	getValueFromUrl("admin?clear=" + id,false);
+		    	reload();
+				}
+			);
+	 }); 
+	 
+	 $("body").delegate(".info", "click", function(){
+		    var id=this.id;
+		    var info=getValueFromUrl("admin?info=" + id,false);
+		    $('#infoContent').html(JSON.stringify(JSON.parse(info), null, 4));
+		    $('#info').modal('show');
+	 });
+	 
+	 $("body").delegate("#add", "click", function(){
+		    getValueFromUrl("admin?link=" + $("#linkContent").val(),false);
+		    reload();
+	 });
+	 
+	function parseDownload(jsonMessage)
+	{
+		jsonMonkeys=JSON.parse(jsonMessage);
+		var html="";
+		for ( i=0;i<jsonMonkeys.length;i++)
+ 		{
+	 		
+	 		html+="<tr>";
+	 			html+="<td class=\"collapsing\"><button id=\"" + jsonMonkeys[i].url + "\" class=\"mini ui primary button deletable\">Clear</button></td>";
+	 			html+="<td class=\"collapsing\">" + jsonMonkeys[i].fileName + "</td>";
+	 			html+="<td class=\"collapsing\">" + jsonMonkeys[i].speed + "Kb/s</td>";
+	 			html+="<td class=\"collapsing\"><br><div style=\"height:15px\" class=\"ui indicating progress\" data-percent=\"" + jsonMonkeys[i].progression + "\"><div class=\"bar\" style=\"height:15px;transition-duration: 300ms; width: " +jsonMonkeys[i].progression +"%\"><div class=\"progress\">"+ jsonMonkeys[i].progression+ "%</div></div></div></td>";
+	 			html+="<td class=\"collapsing\"><button id=\"" + jsonMonkeys[i].url + "\" class=\"mini ui primary button info\">Infos</button></td>";
+	 	 	html+="</tr>";	 		
+	 	}
+		$("#content").html(html);
+	}
+	
+	function parseLogs(jsonMessage)
+	{
+		jsonLogs=JSON.parse(jsonMessage);
+		var html="";
+		for ( i=0;i<jsonLogs.length;i++)
+ 		{
+			html+="<div class=\"item\">" +jsonLogs[i] +"</div>";
+	 	}
+		$("#logs").html(html);
+	}
+	
+	function reload()
+	{
+		getValueFromUrl("admin?state=yes",true,parseDownload);
+		getValueFromUrl("admin?logs=yes",true,parseLogs);
+	}
+	
+	$('#liveMode')
+	  .checkbox({
+		    onChecked: function() {
+		    	live=1;
+		    },
+		    onUnchecked: function() {
+		    	live=0;
+		      }
+		  });
+});
+
+
+</script>
+
+</head>
+<body>
+
+<div><img src=images/monkey.png><div class="ui label">PimpMyJDownloader</div></div><br>
+<div style=position:relative;left:10px class="ui left icon input">
+  <input id=linkContent type="text" placeholder="Paste new link...">
+  <i class="users icon"></i>
+</div><button id=add class="ui primary button">
+  Add
+</button>
+<div id=liveMode style=position:fixed;right:10px; class="ui slider checkbox">
+  <input type="checkbox" name="refresh">
+  <label>Auto-refresh</label>
+</div><br>
+<table class="mini ui compact celled definition table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>FileName</th>
+      <th>Speed</th>
+      <th>Progression</th>
+      <th>Info</th>
+    </tr>
+  </thead>
+  <tbody id=content>
+  </tbody>
+  <tfoot class="full-width">
+  </tfoot>
+</table>
+
+ <div id=confirm class="ui basic modal">
+			  <div class="ui icon header">
+			    <div id=confirm_icon></div>
+			  </div>
+			  <div class="content">
+			    <p><div id=confirm_message></div></p>
+			  </div>
+			  <div class="actions">
+			    <div class="ui red ok inverted button Cancel">
+			      <i class="remove icon"></i>
+			      Cancel
+			    </div>
+			    <div class="ui green ok inverted button Confirm">
+			      <i class="checkmark icon"></i>
+			      Confirm
+			    </div>
+  			</div>
+	</div>
+	
+	
+<div id=info class="large ui modal">
+  <i class="close icon"></i>
+  <div class="header">
+    Informations
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="/images/monkey.png">
+    </div>
+    <div class="description">
+      <div  class="ui header">Details:</div>
+      <div id=infoContent style="white-space: pre;"></div>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui positive right labeled icon button">
+      Close
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+
+<div id=logs class="ui list">
+</div>
+	
+</body>
+</html>
