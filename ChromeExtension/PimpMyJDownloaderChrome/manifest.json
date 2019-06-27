@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "PimpMyJDownloaderChromeExtension",
+  "description": "Chrome Extension for PimpMyJDownloader",
+  "version": "1.0",
+  "permissions": [
+   "http://*/*",
+   "https://*/*",
+   "clipboardRead",
+   "storage",
+   "notifications",
+   "contextMenus"
+  ],
+  "background": { 
+    "scripts": ["js/jquery.js","js/utils.js","background.js"]
+   },
+  "browser_action": {
+   "default_icon" : "img/monkey.png",
+   "default_popup": "popup.html"
+  },
+  "icons": {
+   "128" : "img/monkey.png"
+  }
+ }
