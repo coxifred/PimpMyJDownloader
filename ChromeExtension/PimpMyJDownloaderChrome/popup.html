@@ -25,7 +25,7 @@
     <div class="detail">.extension</div>
  </a>
  <div class="ui labeled input">
-    <div class="ui label">
+    <div id=linkServer class="ui label">
       http://
     </div>
     <input id=serverInfo size="43" type="text" placeholder="<Your_PimpMyJDownloader_Server>:<Your_port>">
@@ -36,10 +36,22 @@
         </div>
       </div>
   </div>
+  <div class="ui labeled input">
+    <div class="ui label">
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Url
+    </div>
+    <input id=url size="43" type="text" placeholder="<An url to grab>">
+    <div class="ui vertical animated button" tabindex="0">
+        <div id=pimp class="hidden content">Pimp!</div>
+        <div class="visible content">
+          <i class="cloud upload icon"></i>
+        </div>
+      </div>
+  </div>
 
   <div id=content></div>
 
-
+  <div id=health style=position:fixed;right:5px;top:0px></div>
   
 
 
