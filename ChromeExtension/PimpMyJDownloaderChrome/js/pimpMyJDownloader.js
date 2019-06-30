@@ -21,6 +21,17 @@ $(document).ready(function(){
                 getValueFromUrl("http://" + server + "/admin?version=?",true,checkVersion);
              });	
 
+             $("body").delegate("#pimp", "click", function(){
+               
+                // Sending url
+                getValueFromUrl("http://" + server + "/admin?link=" +  $("#url").val(),true,cleanInput);
+             });
+             
+             $("body").delegate("#linkServer", "click", function(){
+                var win=windows.open("http://" + server,'_blank');
+                win.focus();
+             });
+
              $("body").delegate(".deletable", "click", function(){
 		    	var id=this.id;
 		    	getValueFromUrl("http://" + server + "/admin?clear=" + id,function(){
@@ -38,7 +49,10 @@ $(document).ready(function(){
 	        
 	 
 	 
-	 
+            function cleanInput()
+            {
+                $("#url").val("");
+            }
 
 
             setInterval(
@@ -63,9 +77,11 @@ $(document).ready(function(){
                 if ( version != undefined && version != "ERROR")
                 {
                 notification("Good news !", "Server has been setted and responding. Version is " + version);
+                $("#health").html("<div class=\"ui red label\"><i class=\"thumbs up icon\"></i>OK</div>");
                 }else
                 {
                 notification("Problem..", "Server " + server + " seems to be down, are you sure ?");
+                 $("#health").html("<div class=\"ui green label\"><i class=\"thumbs down icon\"></i>OK</div>");
                 }
                 log('Writing in local storage ' + $("#serverInfo").val());
                 localStorage.setItem('pimpMyJDownloaderServer',$("#serverInfo").val());
@@ -76,9 +92,10 @@ $(document).ready(function(){
                  if ( jsonMessage == undefined)
                  {
                     $("#content").html("Error in query server " + server);
+                    $("#health").html("<div class=\"ui red label\"><i class=\"thumbs down icon\"></i>OK</div>");
                  }else{
 
-                 
+                    $("#health").html("<div class=\"ui green label\"><i class=\"thumbs up icon\"></i>OK</div>");
                  jsonMonkeys=JSON.parse(jsonMessage);
                  var html="<table>";
                  for ( i=0;i<jsonMonkeys.length;i++)
