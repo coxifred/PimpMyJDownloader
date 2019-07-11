@@ -344,30 +344,29 @@ public class PimpMyJDownloaderExtension extends AbstractExtension<PimpMyJDownloa
 						+ PimpMyJDownloaderExtension.getInstance().getPort());
 	}
 
-	public synchronized static void log(String message) {
-		if (logs.size() > 1 && logs.get(logs.size() - 1) != null
-				&& Fonctions.getFieldFromString(logs.get(logs.size() - 1), "\\|", 0).replaceAll("^[0-9]*\\s", "A ")
-						.equals("A " + message)) {
-			String repeat = Fonctions.getFieldFromString(logs.get(logs.size() - 1), "\\|", 1).replace("repeating", "")
-					.replace("times", "").replaceAll(" ", "");
-			Integer count = 0;
-			if (repeat == null || "".equals(repeat)) {
-				count = 2;
-			} else {
-				count = Integer.parseInt(repeat);
-				count++;
-			}
-			logs.remove(logs.size() - 1);
-			message = message + "| repeating " + count + " times";
-		}
-		logs.add(Fonctions.getDateFormat(new Date(), null) + " " + message);
-		logger.log(new LogRecord(Level.INFO, message));
-		if (logs.size() > maxLogLines) {
-			List<String> subLogs = new ArrayList<String>();
-			subLogs = logs.subList(1, logs.size() - 1);
-			logs = subLogs;
-		}
-	}
+        public synchronized static void log(String message) {
+        if (logs.size() > 1 && logs.get(logs.size() - 1) != null
+                && Fonctions.getFieldFromString(logs.get(logs.size() - 1), "\\|", 0).replaceAll("^[0-9]*\\s", "A ")
+                        .equals("A " + message)) {
+            String repeat = Fonctions.getFieldFromString(logs.get(logs.size() - 1), "\\|", 1).replace("repeating", "")
+                    .replace("times", "").replaceAll(" ", "");
+            Integer count = 0;
+            if (repeat == null || "".equals(repeat)) {
+                count = 2;
+            } else {
+                count = Integer.parseInt(repeat);
+                count++;
+            }
+            logs.remove(logs.size() - 1);
+            message = message + "| repeating " + count + " times";
+        }
+        logs.add(Fonctions.getDateFormat(new Date(), null) + " " + message);
+        logger.log(new LogRecord(Level.INFO, message));
+        if (logs.size() >= maxLogLines) {
+            logs.remove(0);
+ 
+        }
+        }
 
 	public String getDescription() {
 		return this.T.jd_plugins_optional_pimpmyjdownloader_jdpimpmyjdownloader_description();
