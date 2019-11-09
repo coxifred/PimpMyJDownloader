@@ -16,9 +16,11 @@ $(document).ready(function(){
                 
             
             $("body").delegate("#save", "click", function(){
-               
+                log('Writing in local storage ' + $("#serverInfo").val());
+                localStorage.setItem('pimpMyJDownloaderServer',$("#serverInfo").val());
                 // Testing server
-                getValueFromUrl("http://" + server + "/admin?version=?",true,checkVersion);
+                getValueFromUrl("http://" + $("#serverInfo").val() + "/admin?version=?",true,checkVersion);
+		    
              });	
 
              $("body").delegate("#pimp", "click", function(){
@@ -83,8 +85,7 @@ $(document).ready(function(){
                 notification("Problem..", "Server " + server + " seems to be down, are you sure ?");
                  $("#health").html("<div class=\"ui green label\"><i class=\"thumbs down icon\"></i>OK</div>");
                 }
-                log('Writing in local storage ' + $("#serverInfo").val());
-                localStorage.setItem('pimpMyJDownloaderServer',$("#serverInfo").val());
+               
              }
 
              function parseDownload(jsonMessage)
