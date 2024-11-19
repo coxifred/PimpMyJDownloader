@@ -51,7 +51,43 @@ http://your_ip:your_port/admin?state=json  For retrieving Json status of all dow
 
 http://your_ip:your_port/admin?logs=json  For retrieving Json logs.
 
-## **Installation in JDownloader**
+## **Running with docker**
+
+Simpliest way to launch this plugin is with docker.
+
+> Your JDownloader will be launched inside a docker rocky linux container.
+> 
+> Your desktop will be reachable through port 6901 (NoVnc) with HTML5 browser.
+> 
+> Your PimpMyJDownloader server will be reachable through port 8080 with HTML5 browser.
+> 
+
+### 0. Use compose:
+
+```yaml
+version: "2.4"
+services:
+  "pimpmyjdownloader":
+    container_name: "pimpmyjdownloader"
+    privileged: true
+    image: "pimpmyjdownloader:1.0"
+    #volumes:
+      # Override storage directory
+      #- /mediatheque/JDownloader:/mediatheque/JDownloader
+      # Override PimpMyJDownloader settings
+      #- /root/pimpmyjdownloader.json:/opt/jd2/pimpMyJDownloader.json
+     
+      
+    restart: always
+    ports:
+      # NoVnc Html5
+      - "6901:6901"
+      # PimpMyJDownloader Jetty webserver
+      - "8081:8080"
+```
+### 1. docker-compose up -d (JDownloader should start within 1mn)
+
+## **Installation in JDownloader** for real men :)
 
 ### 0. Requisites, considering JDownloader2 is installed (I use build June 2019).This extension has been built with java8.
 And sorry, headless is not supported, need a MyJDownloader account :(.
