@@ -83,7 +83,7 @@ services:
       # NoVnc Html5
       - "6901:6901"
       # PimpMyJDownloader Jetty webserver
-      - "8081:8080"
+      - "8080:8080"
 ```
 ### 1. docker-compose up -d (JDownloader should start within 1mn)
 
