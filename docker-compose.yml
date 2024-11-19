@@ -1,0 +1,19 @@
+version: "2.4"
+services:
+  "pimpmyjdownloader":
+    container_name: "pimpmyjdownloader"
+    privileged: true
+    image: "pimpmyjdownloader:1.0"
+    #volumes:
+      # Override storage directory
+      #- /mediatheque/JDownloader:/mediatheque/JDownloader
+      # Override PimpMyJDownloader settings
+      #- /root/pimpmyjdownloader.json:/opt/jd2/pimpMyJDownloader.json
+     
+      
+    restart: always
+    ports:
+      # NoVnc Html5
+      - "6901:6901"
+      # PimpMyJDownloader Jetty webserver
+      - "8081:8080"
