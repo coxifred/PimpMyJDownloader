@@ -13,6 +13,8 @@ RUN mkdir /opt/jd2
 
 # Copy all
 COPY jd2 /opt/jd2
+# Rm logs
+RUN rm -rf /opt/jd2/logs/*
 
 COPY pimpMyJDownloader.json /opt/jd2
 COPY launch.sh  /opt/jd2
