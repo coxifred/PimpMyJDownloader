@@ -13,6 +13,9 @@ while true
   date
    chmod 777 tmp/extensioncache/extensionInfos.json
    cp tmp/extensioncache/extensionInfos.fred tmp/extensioncache/extensionInfos.json
+   # Clean rm -rf /opt/jd2/jd/captcha/methods/*
+   echo "Cleaning rm -rf /opt/jd2/jd/captcha/methods/*"
+   rm -rf /opt/jd2/jd/captcha/methods/* 2>/dev/null
    pkill -9 -f "JDownloader2"
    ./JDownloader2 &
    sleep 120
