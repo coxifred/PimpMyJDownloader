@@ -13,6 +13,8 @@ while true
   date
    chmod 777 tmp/extensioncache/extensionInfos.json
    cp tmp/extensioncache/extensionInfos.fred tmp/extensioncache/extensionInfos.json
+   cd /opt/jd2/extensions
+   ln -s PimpMyJDownloader-1.0.jar PimpMyJDownloader.jar 2>/dev/null
    # Clean rm -rf /opt/jd2/jd/captcha/methods/*
    echo "Cleaning rm -rf /opt/jd2/jd/captcha/methods/*"
    rm -rf /opt/jd2/jd/captcha/methods/* 2>/dev/null
