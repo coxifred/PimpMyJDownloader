@@ -15,6 +15,7 @@ while true
    cp tmp/extensioncache/extensionInfos.fred tmp/extensioncache/extensionInfos.json
    cd /opt/jd2/extensions
    ln -s PimpMyJDownloader-1.0.jar PimpMyJDownloader.jar 2>/dev/null
+   cd -
    # Clean rm -rf /opt/jd2/jd/captcha/methods/*
    echo "Cleaning rm -rf /opt/jd2/jd/captcha/methods/*"
    rm -rf /opt/jd2/jd/captcha/methods/* 2>/dev/null

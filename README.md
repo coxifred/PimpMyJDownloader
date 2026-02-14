@@ -87,6 +87,10 @@ services:
 ```
 ### 1. docker-compose up -d (JDownloader should start within 1mn)
 
+### 2. You could find the password to http://<ip>:6901 by going inside the container `docker exec -ti pimpmyjdownloader env | grep VNC_PW`
+
+### 3. You can choose the password by exporting VNC_PW var env within the `docker-compose.yml`
+
 ## **Installation in JDownloader** for real men :)
 
 ### 0. Requisites, considering JDownloader2 is installed (I use build June 2019).This extension has been built with java8.

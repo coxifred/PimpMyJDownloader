@@ -4,6 +4,9 @@ services:
     container_name: "pimpmyjdownloader"
     privileged: true
     image: "docker.io/coxifred/pimpmyjdownloader:3.0"
+    environment:
+       # Override vnc password
+       VNC_PW: "vncpassword"
     #volumes:
       # Override storage directory
       #- /mediatheque/JDownloader:/mediatheque/JDownloader
