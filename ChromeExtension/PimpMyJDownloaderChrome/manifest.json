@@ -1,24 +1,33 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "PimpMyJDownloaderChromeExtension",
-  "description": "Chrome Extension for PimpMyJDownloader",
-  "version": "1.0",
-  "permissions": [
-   "http://*/*",
-   "https://*/*",
-   "clipboardRead",
-   "storage",
-   "notifications",
-   "contextMenus"
-  ],
-  "background": { 
-    "scripts": ["js/jquery.js","js/utils.js","background.js"]
-   },
-  "browser_action": {
-   "default_icon" : "img/monkey.png",
-   "default_popup": "popup.html"
+  "version": "2.0",
+  "description": "Chrome Extension for PimpMyJDownloade",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "img/monkey.png",
+      "32": "img/monkey.png",
+      "48": "img/monkey.png",
+      "128": "img/monkey.png"
+    }
   },
-  "icons": {
-   "128" : "img/monkey.png"
-  }
- }
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage","activeTab", "scripting", "contextMenus", "notifications", "webRequest"
+  ],
+  "host_permissions": [
+    "http://*/",
+    "https://*/"
+  ],
+  "content_scripts": [
+    {
+      "js": ["js/jquery.js","js/semantic.min.js", "js/utils.js"],
+      "matches": ["*://*/*"]
+    }
+  ]
+}
+
+

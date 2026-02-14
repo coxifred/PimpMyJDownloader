@@ -1,26 +1,33 @@
 
 var live=1;
-
+var server="";
 $(document).ready(function(){
 
             log("Loading extension");
             reload();
-            var server=localStorage.getItem('pimpMyJDownloaderServer')
-            if ( server == undefined )
-            {
-            notification("Welcome Home Cornelius", "Please enter your server adress");
-            }else{
-            log('Found server ' + server);
-            $("#serverInfo").val(server);
-            }
+            chrome.storage.local.get(['pimpMyJDownloaderServer'], function(result) {
+               server = result.pimpMyJDownloaderServer;
+               if (server === undefined) {
+                  notification("Welcome Home Cornelius", "Please enter your server adress");
+               } else {
+                  log('Found server ' + server);
+                  $("#serverInfo").val(server);
+               }
+            });
+            
                 
             
             $("body").delegate("#save", "click", function(){
                 log('Writing in local storage ' + $("#serverInfo").val());
-                localStorage.setItem('pimpMyJDownloaderServer',$("#serverInfo").val());
-                // Testing server
-                getValueFromUrl("http://" + $("#serverInfo").val() + "/admin?version=?",true,checkVersion);
-		    
+                //localStorage.setItem('pimpMyJDownloaderServer',$("#serverInfo").val());
+                chrome.storage.local.set({ 'pimpMyJDownloaderServer': $("#serverInfo").val() }, function() {
+                  log('Writing in chrome.storage.local ' + $("#serverInfo").val());
+                  // Testing server
+                  getValueFromUrl("http://" + $("#serverInfo").val() + "/admin?version=?", true, checkVersion);
+                });
+                
+                
+                
              });	
 
              $("body").delegate("#pimp", "click", function(){
@@ -69,8 +76,12 @@ $(document).ready(function(){
 
             function reload()
              {
-             
-              var feedback=getValueFromUrl("http://" + server + "/admin?state=yes",true,parseDownload);
+              try{
+                  var feedback=getValueFromUrl("http://" + server + "/admin?state=yes",true,parseDownload);
+              }   catch(e)
+              {
+                  log("Error in reload " + e);
+              }
              
              }
 

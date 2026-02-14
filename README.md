@@ -70,7 +70,7 @@ services:
   "pimpmyjdownloader":
     container_name: "pimpmyjdownloader"
     privileged: true
-    image: "docker.io/coxifred/pimpmyjdownloader:1.0"
+    image: "docker.io/coxifred/pimpmyjdownloader:2.0"
     #volumes:
       # Override storage directory
       #- /mediatheque/JDownloader:/mediatheque/JDownloader
