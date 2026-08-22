@@ -4,13 +4,18 @@ let server;
 let downloaded = new Map();
 
 
-chrome.runtime.onInstalled.addListener(() => {
-  chrome.contextMenus.create({
-    id: "pimp-this",
-    title: "Pimp this !",
-    contexts: ["page", "selection", "link"]
+function createContextMenu() {
+  chrome.contextMenus.removeAll(() => {
+    chrome.contextMenus.create({
+      id: "pimp-this",
+      title: "Pimp this !",
+      contexts: ["page", "selection", "link"]
+    });
   });
-});
+}
+
+chrome.runtime.onInstalled.addListener(createContextMenu);
+chrome.runtime.onStartup.addListener(createContextMenu);
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "pimp-this") {
