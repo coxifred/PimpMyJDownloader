@@ -1,5 +1,5 @@
 
-
+let errorDetected=false;
 let server;
 let downloaded = new Map();
 
@@ -52,10 +52,27 @@ async function reload() {
 }
 
 function parseDownload(jsonMessage) {
-    if (jsonMessage === undefined) {
+	try {
+			JSON.parse(jsonMessage);
+			errorDetected=false;
+		 } catch(e)
+		{
+		   if ( ! errorDetected )
+				{
+			       notification("Error in query server", server);
+				}
+			errorDetected=true;
+		return;
+	}
+    if (jsonMessage === undefined ) {
         // No DOM, so use notification or log
-        notification("Error in query server", server);
+		if ( ! errorDetected )
+		{
+			notification("Error in query server", server);
+		}
+		errorDetected=true;
     } else {
+		errorDetected=false;
         let jsonMonkeys = JSON.parse(jsonMessage);
         let globalPercent = 0;
         let count = 0;
@@ -115,5 +132,3 @@ function notification(title, message) {
         message: message
     });
 }
-
-    
